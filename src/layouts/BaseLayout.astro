@@ -4,6 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { positioning } from '../data/model';
 import '../styles/global.css';
+import '../styles/motion.css';
 
 interface Props {
 	title?: string;
@@ -20,6 +21,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
 <html lang="en-GB">
 	<head>
 		<meta charset="utf-8" />
+		<script is:inline>document.documentElement.classList.add('js')</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -45,5 +47,8 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
 			<slot />
 		</main>
 		<SiteFooter />
+		<script>
+			import '../scripts/motion.ts';
+		</script>
 	</body>
 </html>

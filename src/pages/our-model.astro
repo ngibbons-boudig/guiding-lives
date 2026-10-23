@@ -16,7 +16,7 @@ const steps = [
 ---
 
 <BaseLayout title="Our Model" description={modelTitle}>
-	<section class="head wrap">
+	<section class="head wrap" data-reveal>
 		<div class="eyebrow">Our Model</div>
 		<h1>{modelTitle}</h1>
 		<Decor kind="rule" />
@@ -24,7 +24,7 @@ const steps = [
 	</section>
 
 	<section class="wrap tree-section" aria-label="The support around each young person">
-		<p class="hint">Select an area to see how we help.</p>
+		<p class="hint" data-reveal>Select an area to see how we help.</p>
 		<ModelTree expandable />
 	</section>
 
@@ -33,11 +33,11 @@ const steps = [
 	</RootedIn>
 
 	<section class="steps-section wrap" aria-labelledby="how-title">
-		<div class="steps-head">
+		<div class="steps-head" data-reveal>
 			<div class="eyebrow">How it works</div>
 			<h2 id="how-title">From referral to first session</h2>
 		</div>
-		<ol class="steps">
+		<ol class="steps" data-stagger>
 			{
 				steps.map((s, i) => (
 					<li>

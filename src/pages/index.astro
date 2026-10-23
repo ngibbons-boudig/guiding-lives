@@ -17,6 +17,7 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 			src={heroPhoto.src}
 			alt={heroPhoto.alt}
 			class="hero-photo"
+			data-parallax="0.12"
 			widths={[640, 1024, 1600, 2400]}
 			sizes="100vw"
 			loading="eager"
@@ -34,7 +35,7 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 		<Decor kind="sprig" class="hero-sprig" />
 	</section>
 
-	<section class="intro wrap">
+	<section class="intro wrap" data-reveal>
 		<div class="eyebrow">Our Model</div>
 		<h2>{modelTitle}</h2>
 		<Decor kind="rule" />
@@ -47,12 +48,12 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 
 	<section class="more">
 		<div class="wrap more-inner">
-			<div class="more-text">
+			<div class="more-text" data-reveal>
 				<h2 class="more-title">{moreThanMentoring.title}</h2>
 				<Decor kind="rule" />
 				<p class="lede">{moreThanMentoring.body}</p>
 			</div>
-			<ul class="more-list">
+			<ul class="more-list" data-stagger>
 				{
 					moreThanMentoring.items.map((item) => (
 						<li>
@@ -87,9 +88,9 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 	/* Photo with a warm cream wash, pulling it toward the palette as the brief asks. */
 	.hero-photo {
 		position: absolute;
-		inset: 0;
+		inset: -10% 0;
 		width: 100%;
-		height: 100%;
+		height: 120%;
 		object-fit: cover;
 		object-position: 70% center;
 		filter: saturate(0.7) sepia(0.12);

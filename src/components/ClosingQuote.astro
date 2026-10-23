@@ -12,8 +12,8 @@ const { cta = false } = Astro.props;
 
 <!-- Meadow photo is a temporary Unsplash placeholder: see src/data/photos.ts. -->
 <section class="closing">
-	<Image src={closingPhoto.src} alt="" class="closing-photo" widths={[640, 1024, 1600, 2400]} sizes="100vw" />
-	<div class="inner">
+	<Image src={closingPhoto.src} alt="" class="closing-photo" data-parallax="0.1" widths={[640, 1024, 1600, 2400]} sizes="100vw" />
+	<div class="inner" data-reveal>
 		<p class="quote">{closingLine}</p>
 		{cta && <a class="btn btn-primary" href="/about/#contact">Make a referral</a>}
 	</div>
@@ -35,9 +35,9 @@ const { cta = false } = Astro.props;
 	/* Decorative backdrop (alt=""), washed toward cream so the script quote stays legible. */
 	.closing-photo {
 		position: absolute;
-		inset: 0;
+		inset: -20% 0;
 		width: 100%;
-		height: 100%;
+		height: 140%;
 		object-fit: cover;
 		object-position: center 60%;
 		filter: saturate(0.65) sepia(0.15);

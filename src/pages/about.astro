@@ -21,12 +21,12 @@ const roles = [
 
 <BaseLayout title="About & Contact" description="Meet Shelley Monk, founder of Guiding Lives, and get in touch or make a referral.">
 	<section class="about wrap">
-		<figure class="portrait">
+		<figure class="portrait" data-reveal>
 			<!-- Portrait of Shelley to be supplied -->
 			<div class="portrait-ph" data-todo>Portrait photo of Shelley</div>
 			<figcaption data-todo>[Caption — name and role]</figcaption>
 		</figure>
-		<div class="bio">
+		<div class="bio" data-reveal style="--d: 150ms">
 			<div class="eyebrow">About</div>
 			<h1>Meet Shelley Monk</h1>
 			<Decor kind="rule" />
@@ -46,7 +46,7 @@ const roles = [
 	</section>
 
 	<section class="values">
-		<ul class="wrap">
+		<ul class="wrap" data-stagger>
 			{
 				values.map((v) => (
 					<li>
@@ -62,7 +62,7 @@ const roles = [
 	</section>
 
 	<section id="contact" class="contact wrap">
-		<div class="contact-text">
+		<div class="contact-text" data-reveal>
 			<div class="eyebrow">Contact</div>
 			<h2>Get in touch or make a referral</h2>
 			<p class="lede" data-todo>[Who can refer, what happens next, response time]</p>
@@ -77,7 +77,7 @@ const roles = [
 			Netlify Forms: detected from the built HTML (data-netlify). If the site is
 			hosted elsewhere, point `action` at that host's form handler instead.
 		-->
-		<form class="form" name="contact" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company">
+		<form data-reveal style="--d: 150ms" class="form" name="contact" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company">
 			<input type="hidden" name="form-name" value="contact" />
 			<p class="hp" aria-hidden="true"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
 			<div class="field">
@@ -206,7 +206,7 @@ const roles = [
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		gap: 64px;
-		scroll-margin-top: 24px;
+		scroll-margin-top: 110px;
 	}
 	.contact-text {
 		display: flex;

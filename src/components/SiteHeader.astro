@@ -45,8 +45,28 @@ const path = Astro.url.pathname;
 		gap: 24px;
 		padding: 16px var(--gutter);
 		background: var(--cream);
-		position: relative;
-		z-index: 5;
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		transition:
+			padding 0.5s var(--ease-soft),
+			background 0.5s,
+			box-shadow 0.5s;
+	}
+	/* Compact, frosted header once the page has scrolled (class set in src/scripts/motion.ts). */
+	.site-header.scrolled {
+		padding-block: 8px;
+		background: rgba(246, 243, 235, 0.86);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		box-shadow: 0 1px 0 rgba(205, 199, 177, 0.7), 0 10px 30px -24px rgba(41, 60, 48, 0.4);
+	}
+	.scrolled .mark {
+		width: 56px;
+		height: 56px;
+	}
+	.scrolled .name {
+		font-size: 24px;
 	}
 	.lockup {
 		display: flex;
@@ -59,6 +79,7 @@ const path = Astro.url.pathname;
 		height: 84px;
 		border-radius: 50%;
 		object-fit: cover;
+		transition: width 0.5s var(--ease-soft), height 0.5s var(--ease-soft);
 	}
 	.words {
 		display: flex;
@@ -69,6 +90,7 @@ const path = Astro.url.pathname;
 		font-family: var(--display);
 		font-size: 30px;
 		color: var(--deep-green);
+		transition: font-size 0.5s var(--ease-soft);
 	}
 	.sub {
 		font-size: 10px;
@@ -108,12 +130,14 @@ const path = Astro.url.pathname;
 	}
 
 	@media (max-width: 900px) {
-		.mark {
-			width: 60px;
-			height: 60px;
+		.mark,
+		.scrolled .mark {
+			width: 52px;
+			height: 52px;
 		}
-		.name {
-			font-size: 23px;
+		.name,
+		.scrolled .name {
+			font-size: 22px;
 		}
 		.sub {
 			font-size: 8.5px;
