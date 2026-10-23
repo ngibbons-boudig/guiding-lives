@@ -6,12 +6,14 @@ import ClosingQuote from '../components/ClosingQuote.astro';
 import Decor from '../components/Decor.astro';
 import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
-import { heroPhoto } from '../data/photos';
+import Testimonials from '../components/Testimonials.astro';
+import { heroPhoto, shelleyPhoto } from '../data/photos';
+import { welcome } from '../data/content';
 import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } from '../data/model';
 ---
 
 <BaseLayout>
-	<!-- Hero photo is a temporary Unsplash placeholder: see src/data/photos.ts. -->
+	<!-- Hero photo from the old site: see src/data/photos.ts. -->
 	<section class="hero">
 		<Image
 			src={heroPhoto.src}
@@ -33,6 +35,20 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 			</div>
 		</div>
 		<Decor kind="sprig" class="hero-sprig" />
+	</section>
+
+	<section class="welcome wrap">
+		<div class="welcome-photo" data-reveal>
+			<Image src={shelleyPhoto.src} alt={shelleyPhoto.alt} widths={[400, 700, 1000]} sizes="(max-width: 860px) 90vw, 460px" />
+			<span class="stat">{welcome.stat}</span>
+		</div>
+		<div class="welcome-text" data-reveal style="--d: 150ms">
+			<div class="eyebrow">{welcome.eyebrow}</div>
+			<h2>{welcome.title}</h2>
+			<Decor kind="rule" />
+			{welcome.body.map((p) => <p class="lede">{p}</p>)}
+			<a class="btn btn-ghost" href="/about/">Meet Shelley</a>
+		</div>
 	</section>
 
 	<section class="intro wrap" data-reveal>
@@ -70,6 +86,8 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 
 	<RootedIn />
 
+	<Testimonials />
+
 	<ClosingQuote />
 </BaseLayout>
 
@@ -92,7 +110,7 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 		width: 100%;
 		height: 120%;
 		object-fit: cover;
-		object-position: 70% center;
+		object-position: left 60%;
 		filter: saturate(0.7) sepia(0.12);
 	}
 	.hero::after {
@@ -130,6 +148,55 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 		right: 40px;
 		bottom: 24px;
 		opacity: 0.9;
+	}
+
+	.welcome {
+		padding-top: var(--section);
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: clamp(40px, 6vw, 80px);
+		align-items: center;
+	}
+	.welcome-photo {
+		position: relative;
+	}
+	.welcome-photo :global(img) {
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+		border-radius: 220px 220px 48px 48px;
+	}
+	.stat {
+		position: absolute;
+		right: -12px;
+		bottom: 40px;
+		background: var(--deep-green);
+		color: var(--cream);
+		font-size: 12px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		padding: 14px 22px;
+		border-radius: 999px;
+	}
+	.welcome-text {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		align-items: flex-start;
+	}
+	.welcome-text h2 {
+		font-size: clamp(28px, 3.4vw, 38px);
+	}
+	@media (max-width: 860px) {
+		.welcome {
+			grid-template-columns: 1fr;
+		}
+		.welcome-photo {
+			max-width: 380px;
+		}
+		.stat {
+			right: 8px;
+		}
 	}
 
 	.intro {

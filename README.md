@@ -18,8 +18,11 @@ Also listed in Devhub (`~/Projects/devhub/sites.json`, id `guiding-lives`).
 | Path | What |
 | --- | --- |
 | `src/data/model.ts` | All client copy from the "Our Model" infographic (verbatim — don't reword) |
-| `src/data/photos.ts` | Hero and closing-quote photos (Unsplash placeholders, with credits) |
-| `src/data/site.ts` | Contact details (placeholders) and LinkedIn link |
+| `src/data/content.ts` | Copy from Shelley's old site (bio, approach, testimonials, contact page) |
+| `src/pages/policies.md` | Mentoring policies, from the old site |
+| `docs/old-site/` | Full text of every page on the old WordPress site, for reference |
+| `src/data/photos.ts` | Photos, all from the old site |
+| `src/data/site.ts` | Contact details (from the old site) and LinkedIn link |
 | `src/components/ModelTree.astro` | The tree diagram — static on Home, expandable (`<details>`) on Our Model |
 | `src/components/Icon.astro` | Line icon set from the mockups |
 | `src/styles/global.css` | Brand tokens (palette, fonts) and base styles |
@@ -27,23 +30,31 @@ Also listed in Devhub (`~/Projects/devhub/sites.json`, id `guiding-lives`).
 
 ## Pages
 
-- `/` Home — hero, intro, tree, More than mentoring, Rooted in, closing quote
-- `/our-model/` — expandable tree, foundations, How it works steps
-- `/about/` — About Shelley, values, contact/referral form (`#contact`)
-- `/thank-you/` — form confirmation (noindex)
+- `/` Home: hero, welcome from Shelley, Our Model tree, More than mentoring, Rooted in, testimonials, closing quote
+- `/our-model/`: expandable tree, Shelley's approach and session types, why mentoring matters, foundations, How it works
+- `/about/`: Shelley's bio, approach, line-manager testimonial, contact/referral form (`#contact`)
+- `/policies/`: the eight mentoring policies (safeguarding, privacy, confidentiality, etc.)
+- `/thank-you/`: form confirmation (noindex)
+
+`public/_redirects` sends the old WordPress addresses (`/about-me/`, `/my-approach/`,
+`/contact-us/`, `/mentoring-policies/`) to the new pages.
+
+## Content sources
+
+Copy and photos come from Shelley's previous WordPress site (guidinglivesmentoringsupport.co.uk,
+built by Luminal Company), recovered from the backup she sent in October 2026. Its images
+lived in Luminal's S3 media storage, not in the zip. Shelley asked to keep the existing
+content and pictures, apart from wording tweaks she'll send.
 
 ## Still to come from the client
 
-Every placeholder renders with a soft gold highlight and carries `data-todo` —
-`grep -rn data-todo src` lists them all.
+Remaining placeholders carry `data-todo` and a soft gold highlight; `grep -rn data-todo src` lists them.
 
-- Logo as vector / transparent PNG, and a horizontal lockup (header currently uses a crop of the PNG + live text)
+- "How it works" steps 2–4 on Our Model: confirm with Shelley
+- Logo as vector / transparent PNG, and approval of the horizontal header lockup
 - Real font names (swap in `astro.config.mjs`)
-- Photography: coastal (home hero) and meadow (closing quote) are temporary Unsplash photos — swap in `src/data/photos.ts`; Shelley's portrait (About) is still a placeholder
-- Shelley's bio, portrait, qualifications; values copy
-- Contact email, phone, area covered; safeguarding / DBS statement; privacy note
-- How it works steps and foundation descriptions — confirm with Shelley
-- Existing site URL / platform
+- Shelley's wording tweaks
+- Confirm contact details, and the domain registrar / login
 
 ## Deploying
 

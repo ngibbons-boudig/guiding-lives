@@ -2,74 +2,78 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import Decor from '../components/Decor.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { Image } from 'astro:assets';
 import { contact, linkedin } from '../data/site';
-
-const values = [
-	{ title: 'Connection first', icon: 'heart' },
-	{ title: 'Trauma-informed', icon: 'leaf' },
-	{ title: 'Whole-system support', icon: 'network' },
-] as const;
+import { about, contactCopy } from '../data/content';
+import { shelleyPhoto } from '../data/photos';
 
 const roles = [
 	'Parent or carer',
 	'School or alternative provision',
 	'Local Authority / social care',
 	'Health professional',
+	'Young person',
 	'Other',
 ];
 ---
 
-<BaseLayout title="About & Contact" description="Meet Shelley Monk, founder of Guiding Lives, and get in touch or make a referral.">
+<BaseLayout title="About & Contact" description="Meet Shelley: Therapeutic Support Practitioner and mentor with over fifteen years of experience. One-to-one mentoring for young people aged 11 to 18 in Dorset.">
 	<section class="about wrap">
 		<figure class="portrait" data-reveal>
-			<!-- Portrait of Shelley to be supplied -->
-			<div class="portrait-ph" data-todo>Portrait photo of Shelley</div>
-			<figcaption data-todo>[Caption — name and role]</figcaption>
+			<Image src={shelleyPhoto.src} alt={shelleyPhoto.alt} widths={[400, 700, 1000]} sizes="(max-width: 860px) 90vw, 440px" class="portrait-img" loading="eager" />
+			<figcaption>Shelley Monk, founder of Guiding Lives</figcaption>
 		</figure>
 		<div class="bio" data-reveal style="--d: 150ms">
 			<div class="eyebrow">About</div>
-			<h1>Meet Shelley Monk</h1>
+			<h1>{about.greeting}</h1>
 			<Decor kind="rule" />
-			<p class="lede" data-todo>[Headline and role — from LinkedIn profile, to be supplied]</p>
-			<p data-todo>[Bio paragraph 1 — background, why Guiding Lives was founded, approach to young people and families]</p>
-			<p data-todo>[Bio paragraph 2 — experience, settings worked in, the kind of young people supported]</p>
+			<p class="role">{about.role}</p>
+			{about.body.map((p, i) => <p class:list={{ lede: i === 0 }}>{p}</p>)}
 			<div class="quals">
-				<h2 class="eyebrow">Qualifications and training</h2>
+				<h2 class="eyebrow">Experience and training</h2>
 				<ul>
-					<li><span class="icon-dot"><Icon name="cap" /></span><span data-todo>[Qualification 1]</span></li>
-					<li><span class="icon-dot"><Icon name="cap" /></span><span data-todo>[Qualification 2]</span></li>
-					<li><span class="icon-dot"><Icon name="shield" /></span><span data-todo>[Safeguarding / DBS / insurance]</span></li>
+					{about.highlights.map((h) => (
+						<li><span class="icon-dot"><Icon name={h.icon} /></span>{h.text}</li>
+					))}
 				</ul>
 			</div>
 			<a class="btn btn-ghost" href={linkedin} rel="noopener">View LinkedIn profile</a>
 		</div>
 	</section>
 
-	<section class="values">
+	<section class="values" aria-labelledby="approach-title">
+		<div class="wrap values-head" data-reveal>
+			<div class="eyebrow">My approach</div>
+			<h2 id="approach-title">Practical guidance and emotional support</h2>
+		</div>
 		<ul class="wrap" data-stagger>
 			{
-				values.map((v) => (
+				about.approach.map((v) => (
 					<li>
 						<span class="icon-dot">
 							<Icon name={v.icon} />
 						</span>
-						<h2>{v.title}</h2>
-						<p data-todo>[One or two sentences]</p>
+						<h3>{v.title}</h3>
+						<p>{v.body}</p>
 					</li>
 				))
 			}
 		</ul>
+		<p class="wrap values-outro" data-reveal>{about.approachOutro}</p>
 	</section>
+
+	<Testimonials full only={[1]} />
 
 	<section id="contact" class="contact wrap">
 		<div class="contact-text" data-reveal>
 			<div class="eyebrow">Contact</div>
-			<h2>Get in touch or make a referral</h2>
-			<p class="lede" data-todo>[Who can refer, what happens next, response time]</p>
+			<h2>{contactCopy.title}</h2>
+			{contactCopy.body.map((p, i) => <p class:list={{ lede: i === 0 }}>{p}</p>)}
 			<ul class="details">
-				<li><Icon name="mail" /><span data-todo>{contact.email}</span></li>
-				<li><Icon name="phone" /><span data-todo>{contact.phone}</span></li>
-				<li><Icon name="pin" /><span data-todo>{contact.area}</span></li>
+				<li><Icon name="mail" /><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+				<li><Icon name="phone" /><a href={contact.phoneHref}>{contact.phone}</a></li>
+				<li><Icon name="pin" /><span>Mentoring across {contact.area}</span></li>
 			</ul>
 		</div>
 
@@ -99,7 +103,7 @@ const roles = [
 				<textarea id="f-msg" name="message" rows="5" required></textarea>
 			</div>
 			<button type="submit" class="btn btn-primary">Send message</button>
-			<p class="privacy" data-todo>[Privacy note — how details are stored and used]</p>
+			<p class="privacy">Your details are only used to reply to your enquiry and are stored securely in line with UK GDPR. See the <a href="/policies/#2-privacy--data-protection-policy">privacy and data protection policy</a>.</p>
 		</form>
 	</section>
 </BaseLayout>
@@ -119,17 +123,22 @@ const roles = [
 		flex-direction: column;
 		gap: 14px;
 	}
-	.portrait-ph {
+	.portrait :global(.portrait-img) {
+		width: 100%;
 		aspect-ratio: 4 / 5;
+		object-fit: cover;
 		border-radius: 200px 200px 48px 48px;
-		background: linear-gradient(180deg, #d8dccb, #b9c2b0);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 12px;
-		letter-spacing: 0.18em;
+	}
+	.portrait {
+		position: sticky;
+		top: 120px;
+	}
+	.role {
+		font-size: 13px;
+		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--ink-soft);
+		font-weight: 400;
+		color: var(--olive) !important;
 	}
 	figcaption {
 		font-size: 14px;
@@ -193,8 +202,23 @@ const roles = [
 	.values .icon-dot {
 		background: var(--cream);
 	}
-	.values h2 {
-		font-size: 26px;
+	.values h3 {
+		font-size: 22px;
+	}
+	.values-head {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 14px;
+		margin-bottom: 48px;
+	}
+	.values-outro {
+		margin-top: 48px;
+		max-width: 760px;
+		text-align: center;
+		color: var(--ink-soft);
+		font-size: 18px;
 	}
 	.values p {
 		color: var(--ink-soft);
@@ -283,6 +307,7 @@ const roles = [
 		}
 		.portrait {
 			max-width: 360px;
+			position: static;
 		}
 	}
 </style>

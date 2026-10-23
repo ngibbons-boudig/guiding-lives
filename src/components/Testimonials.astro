@@ -1,0 +1,99 @@
+---
+import { testimonials } from '../data/content';
+
+interface Props {
+	/** Show the full text rather than the short excerpt. */
+	full?: boolean;
+	/** Limit to particular testimonials by index. */
+	only?: number[];
+}
+const { full = false, only } = Astro.props;
+const items = only ? only.map((i) => testimonials[i]) : testimonials;
+---
+
+<section class="testimonials" aria-labelledby="voices-title">
+	<div class="wrap">
+		<h2 id="voices-title" class="eyebrow" data-reveal>Voices of trust</h2>
+		<div class:list={['grid', { single: items.length === 1 }]} data-stagger>
+			{
+				items.map((t) => (
+					<figure>
+						<span class="mark" aria-hidden="true">“</span>
+						<blockquote>
+							{full ? t.full.map((p) => <p>{p}</p>) : <p>{t.short}</p>}
+						</blockquote>
+						<figcaption>{t.who}</figcaption>
+					</figure>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.testimonials {
+		padding: var(--section) 0;
+	}
+	.wrap {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 40px;
+	}
+	h2.eyebrow {
+		font-family: var(--sans);
+		font-size: 12px;
+		letter-spacing: 0.32em;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 28px;
+		width: 100%;
+	}
+	.grid.single {
+		max-width: 860px;
+	}
+	figure {
+		margin: 0;
+		background: var(--stone);
+		border-radius: 48px 140px 48px 48px;
+		padding: 48px 44px 40px;
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		position: relative;
+	}
+	figure:nth-child(2) {
+		border-radius: 140px 48px 48px 48px;
+	}
+	.mark {
+		font-family: var(--display);
+		font-size: 80px;
+		line-height: 0.6;
+		color: var(--sage);
+		height: 32px;
+	}
+	blockquote {
+		margin: 0;
+		font-family: var(--display);
+		font-size: 19px;
+		line-height: 1.6;
+		color: var(--deep-green);
+	}
+	blockquote p + p {
+		margin-top: 12px;
+	}
+	.single blockquote {
+		font-family: var(--sans);
+		font-size: 17px;
+		color: var(--ink-soft);
+	}
+	figcaption {
+		font-size: 12px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--olive);
+		margin-top: auto;
+	}
+</style>

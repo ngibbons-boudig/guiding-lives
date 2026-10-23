@@ -1,0 +1,12 @@
+# Old WordPress addresses (guidinglivesmentoringsupport.co.uk) → new pages.
+# Netlify reads this file; other hosts need the equivalent rules.
+/about-me            /about/             301
+/about-me/           /about/             301
+/my-approach         /our-model/         301
+/my-approach/        /our-model/         301
+/contact-us          /about/#contact     301
+/contact-us/         /about/#contact     301
+/mentoring-policies  /policies/          301
+/mentoring-policies/ /policies/          301
+/home                /                   301
+/home/               /                   301

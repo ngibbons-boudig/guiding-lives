@@ -1,19 +1,25 @@
 /**
- * Temporary Unsplash photos (Unsplash License: free, no attribution required).
- * Replace with Guiding Lives' own photography when the client supplies it:
- * drop the new file into src/assets/photos/ and point the import here at it.
+ * Photography from the old Guiding Lives site (recovered from its media
+ * storage, Oct 2026). Shelley asked for the existing pictures to stay.
  */
-import coast from '../assets/photos/coast-placeholder.jpg';
-import meadow from '../assets/photos/meadow-placeholder.jpg';
+import beach from '../assets/photos/beach-with-dog.jpg';
+import field from '../assets/photos/field-and-trees.jpg';
+import shelley from '../assets/photos/shelley.webp';
+import youngPeople from '../assets/photos/young-people-together.webp';
+import creative from '../assets/photos/creative-session.webp';
+import contact from '../assets/photos/contact.webp';
 
 export const heroPhoto = {
-	src: coast,
-	alt: 'Grassy clifftop above a calm, sunlit sea',
-	// Placeholder: Explorizm on Unsplash — https://unsplash.com/photos/fts8mzIfrjc
+	src: beach,
+	alt: 'A young person and a dog standing on the rocks at the edge of the sea',
 };
 
-export const closingPhoto = {
-	src: meadow,
-	alt: 'Soft-focus wildflowers in a meadow',
-	// Placeholder: Annie Spratt on Unsplash — https://unsplash.com/photos/wW-B4vndPYA
-};
+export const closingPhoto = { src: field, alt: '' }; // decorative backdrop
+
+export const shelleyPhoto = { src: shelley, alt: 'Shelley Monk, founder of Guiding Lives, in woodland' };
+
+export const youngPeoplePhoto = { src: youngPeople, alt: 'A group of young people with their arms around each other' };
+
+export const creativePhoto = { src: creative, alt: 'Hands working on a creative activity during a mentoring session' };
+
+export const contactPhoto = { src: contact, alt: '' };

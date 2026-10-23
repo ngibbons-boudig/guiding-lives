@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import symbol from '../assets/brand/symbol.png';
 import { strapline } from '../data/model';
 import { contact } from '../data/site';
+import { safeguardingSummary } from '../data/content';
 ---
 
 <footer class="site-footer">
@@ -15,14 +16,14 @@ import { contact } from '../data/site';
 		</div>
 		<div>
 			<div class="head">Contact</div>
-			<p data-todo>{contact.email}</p>
-			<p data-todo>{contact.phone}</p>
-			<p data-todo>{contact.area}</p>
+			<p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+			<p><a href={contact.phoneHref}>{contact.phone}</a></p>
+			<p>Mentoring across {contact.area}</p>
 		</div>
 		<div>
 			<div class="head">Safeguarding</div>
-			<p data-todo>[Safeguarding statement / policy link]</p>
-			<p data-todo>[DBS / insurance statement]</p>
+			<p>{safeguardingSummary}</p>
+			<p><a href="/policies/">Read our mentoring policies</a></p>
 		</div>
 	</div>
 	<div class="wrap legal">© {new Date().getFullYear()} Guiding Lives</div>
@@ -76,8 +77,12 @@ import { contact } from '../data/site';
 		color: var(--cream);
 		font-weight: 400;
 	}
-	[data-todo] {
-		background: rgba(222, 193, 152, 0.15);
+	a {
+		color: var(--cream);
+		text-decoration-color: rgba(222, 193, 152, 0.6);
+	}
+	a:hover {
+		color: var(--gold);
 	}
 	.legal {
 		margin-top: 48px;
