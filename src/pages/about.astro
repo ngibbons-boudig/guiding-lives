@@ -47,7 +47,8 @@ const roles = [
 			<div class="eyebrow">My approach</div>
 			<h2 id="approach-title">Practical guidance and emotional support</h2>
 		</div>
-		<ul class="wrap" data-stagger>
+		<div class="wrap">
+		<ul class="approach-list" data-stagger>
 			{
 				about.approach.map((v) => (
 					<li>
@@ -60,6 +61,7 @@ const roles = [
 				))
 			}
 		</ul>
+		</div>
 		<p class="wrap values-outro" data-reveal>{about.approachOutro}</p>
 	</section>
 
@@ -166,7 +168,7 @@ const roles = [
 	}
 	.quals ul,
 	.details,
-	.values ul {
+	.approach-list {
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -187,7 +189,7 @@ const roles = [
 		padding: 80px 0;
 		border-radius: clamp(60px, 14vw, 200px) 0 clamp(60px, 14vw, 200px) 0;
 	}
-	.values ul {
+	.approach-list {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 		gap: 40px;
