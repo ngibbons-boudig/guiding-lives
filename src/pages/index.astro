@@ -5,13 +5,23 @@ import RootedIn from '../components/RootedIn.astro';
 import ClosingQuote from '../components/ClosingQuote.astro';
 import Decor from '../components/Decor.astro';
 import Icon from '../components/Icon.astro';
+import { Image } from 'astro:assets';
+import { heroPhoto } from '../data/photos';
 import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } from '../data/model';
 ---
 
 <BaseLayout>
-	<!-- Hero background is a stand-in gradient: swap for the coastal photo from the existing site. -->
+	<!-- Hero photo is a temporary Unsplash placeholder: see src/data/photos.ts. -->
 	<section class="hero">
-		<span class="photo-note" data-todo>Coastal photo — soft light, clifftop and sea</span>
+		<Image
+			src={heroPhoto.src}
+			alt={heroPhoto.alt}
+			class="hero-photo"
+			widths={[640, 1024, 1600, 2400]}
+			sizes="100vw"
+			loading="eager"
+			fetchpriority="high"
+		/>
 		<div class="hero-card">
 			<div class="eyebrow">Youth mentoring support</div>
 			<h1>{positioning}</h1>
@@ -74,17 +84,28 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 			linear-gradient(180deg, #b9c2b0 0%, #d8dccb 55%, #e9e8da 100%);
 		overflow: hidden;
 	}
-	.photo-note {
+	/* Photo with a warm cream wash, pulling it toward the palette as the brief asks. */
+	.hero-photo {
 		position: absolute;
-		top: 24px;
-		right: var(--gutter);
-		font-size: 11px;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: var(--ink-soft);
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 70% center;
+		filter: saturate(0.7) sepia(0.12);
+	}
+	.hero::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse at 70% 40%, rgba(222, 193, 152, 0.25), transparent 55%),
+			linear-gradient(90deg, rgba(246, 243, 235, 0.35), rgba(246, 243, 235, 0.05) 60%);
+		pointer-events: none;
 	}
 	.hero-card {
 		position: relative;
+		z-index: 1;
 		max-width: 640px;
 		background: rgba(246, 243, 235, 0.92);
 		padding: 56px;
@@ -103,6 +124,7 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 		margin-top: 8px;
 	}
 	:global(.hero-sprig) {
+		z-index: 1;
 		width: clamp(120px, 17vw, 220px);
 		right: 40px;
 		bottom: 24px;
@@ -173,10 +195,6 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 			min-height: 0;
 			padding: 120px 16px 72px;
 			align-items: flex-end;
-		}
-		.photo-note {
-			left: 16px;
-			right: auto;
 		}
 		.hero-card {
 			padding: 40px 28px;

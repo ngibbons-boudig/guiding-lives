@@ -18,6 +18,7 @@ Also listed in Devhub (`~/Projects/devhub/sites.json`, id `guiding-lives`).
 | Path | What |
 | --- | --- |
 | `src/data/model.ts` | All client copy from the "Our Model" infographic (verbatim — don't reword) |
+| `src/data/photos.ts` | Hero and closing-quote photos (Unsplash placeholders, with credits) |
 | `src/data/site.ts` | Contact details (placeholders) and LinkedIn link |
 | `src/components/ModelTree.astro` | The tree diagram — static on Home, expandable (`<details>`) on Our Model |
 | `src/components/Icon.astro` | Line icon set from the mockups |
@@ -38,7 +39,7 @@ Every placeholder renders with a soft gold highlight and carries `data-todo` —
 
 - Logo as vector / transparent PNG, and a horizontal lockup (header currently uses a crop of the PNG + live text)
 - Real font names (swap in `astro.config.mjs`)
-- Photography: coastal (home hero) and meadow (closing quote) — currently gradients
+- Photography: coastal (home hero) and meadow (closing quote) are temporary Unsplash photos — swap in `src/data/photos.ts`; Shelley's portrait (About) is still a placeholder
 - Shelley's bio, portrait, qualifications; values copy
 - Contact email, phone, area covered; safeguarding / DBS statement; privacy note
 - How it works steps and foundation descriptions — confirm with Shelley

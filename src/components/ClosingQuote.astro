@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Decor from './Decor.astro';
+import { closingPhoto } from '../data/photos';
 import { closingLine } from '../data/model';
 
 interface Props {
@@ -8,9 +10,9 @@ interface Props {
 const { cta = false } = Astro.props;
 ---
 
-<!-- Background is a stand-in gradient: swap for the meadow / wildflower photo from the existing site. -->
+<!-- Meadow photo is a temporary Unsplash placeholder: see src/data/photos.ts. -->
 <section class="closing">
-	<span class="photo-note" data-todo>Meadow / wildflower photo</span>
+	<Image src={closingPhoto.src} alt="" class="closing-photo" widths={[640, 1024, 1600, 2400]} sizes="100vw" />
 	<div class="inner">
 		<p class="quote">{closingLine}</p>
 		{cta && <a class="btn btn-primary" href="/about/#contact">Make a referral</a>}
@@ -30,17 +32,26 @@ const { cta = false } = Astro.props;
 		border-radius: clamp(80px, 20vw, 260px) 0 0 0;
 		overflow: hidden;
 	}
-	.photo-note {
+	/* Decorative backdrop (alt=""), washed toward cream so the script quote stays legible. */
+	.closing-photo {
 		position: absolute;
-		top: 24px;
-		left: var(--gutter);
-		font-size: 11px;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: var(--ink-soft);
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 60%;
+		filter: saturate(0.65) sepia(0.15);
+	}
+	.closing::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse at center, rgba(246, 243, 235, 0.88) 0%, rgba(246, 243, 235, 0.6) 55%, rgba(246, 243, 235, 0.25) 100%);
+		pointer-events: none;
 	}
 	.inner {
 		position: relative;
+		z-index: 1;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -55,6 +66,7 @@ const { cta = false } = Astro.props;
 		color: var(--deep-green);
 	}
 	:global(.closing-sprig) {
+		z-index: 1;
 		width: clamp(110px, 14vw, 180px);
 		right: 48px;
 		bottom: 16px;
