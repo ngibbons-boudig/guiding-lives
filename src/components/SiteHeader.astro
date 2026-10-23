@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import symbol from '../assets/brand/symbol.png';
+
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/our-model/', label: 'Our Model' },
+	{ href: '/about/', label: 'About' },
+	{ href: '/about/#contact', label: 'Contact' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+	<!-- Horizontal lockup built from the symbol + live text until the client supplies one. -->
+	<a class="lockup" href="/" aria-label="Guiding Lives — home">
+		<Image src={symbol} alt="" width={84} height={84} class="mark" loading="eager" densities={[1, 2]} />
+		<span class="words">
+			<span class="name">Guiding Lives</span>
+			<span class="sub">Youth Mentoring Support</span>
+		</span>
+	</a>
+
+	<input type="checkbox" id="nav-toggle" class="nav-toggle sr-only" />
+	<label for="nav-toggle" class="nav-button" aria-label="Menu">
+		<span></span><span></span><span></span>
+	</label>
+
+	<nav aria-label="Main">
+		{
+			links.map((l) => (
+				<a href={l.href} aria-current={l.href === path ? 'page' : undefined}>
+					{l.label}
+				</a>
+			))
+		}
+		<a class="btn btn-primary cta" href="/about/#contact">Get in touch</a>
+	</nav>
+</header>
+
+<style>
+	.site-header {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		padding: 16px var(--gutter);
+		background: var(--cream);
+		position: relative;
+		z-index: 5;
+	}
+	.lockup {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		text-decoration: none;
+	}
+	.mark {
+		width: 84px;
+		height: 84px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.words {
+		display: flex;
+		flex-direction: column;
+		line-height: 1;
+	}
+	.name {
+		font-family: var(--display);
+		font-size: 30px;
+		color: var(--deep-green);
+	}
+	.sub {
+		font-size: 10px;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: var(--olive);
+		margin-top: 7px;
+	}
+	nav {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 32px;
+		font-size: 13px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		font-weight: 400;
+	}
+	nav a:not(.cta) {
+		text-decoration: none;
+		padding-bottom: 4px;
+		border-bottom: 1px solid transparent;
+	}
+	nav a:not(.cta):hover {
+		border-bottom-color: var(--gold);
+	}
+	nav a[aria-current='page'] {
+		border-bottom-color: var(--deep-green);
+	}
+	nav .cta {
+		font-size: 13px;
+		letter-spacing: 0.12em;
+		padding: 13px 24px;
+	}
+	.nav-button {
+		display: none;
+	}
+
+	@media (max-width: 900px) {
+		.mark {
+			width: 60px;
+			height: 60px;
+		}
+		.name {
+			font-size: 23px;
+		}
+		.sub {
+			font-size: 8.5px;
+		}
+		.nav-button {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			margin-left: auto;
+			padding: 12px;
+			cursor: pointer;
+			border-radius: 50%;
+		}
+		.nav-button span {
+			width: 22px;
+			height: 1.5px;
+			background: var(--deep-green);
+		}
+		.nav-toggle:focus-visible + .nav-button {
+			outline: 2px solid var(--deep-green);
+		}
+		nav {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 20px;
+			padding: 24px var(--gutter) 32px;
+			background: var(--cream);
+			border-bottom: 1px solid var(--pale-sage);
+		}
+		.nav-toggle:checked ~ nav {
+			display: flex;
+		}
+	}
+</style>

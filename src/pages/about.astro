@@ -1,0 +1,288 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Decor from '../components/Decor.astro';
+import { contact, linkedin } from '../data/site';
+
+const values = [
+	{ title: 'Connection first', icon: 'heart' },
+	{ title: 'Trauma-informed', icon: 'leaf' },
+	{ title: 'Whole-system support', icon: 'network' },
+] as const;
+
+const roles = [
+	'Parent or carer',
+	'School or alternative provision',
+	'Local Authority / social care',
+	'Health professional',
+	'Other',
+];
+---
+
+<BaseLayout title="About & Contact" description="Meet Shelley Monk, founder of Guiding Lives, and get in touch or make a referral.">
+	<section class="about wrap">
+		<figure class="portrait">
+			<!-- Portrait of Shelley to be supplied -->
+			<div class="portrait-ph" data-todo>Portrait photo of Shelley</div>
+			<figcaption data-todo>[Caption — name and role]</figcaption>
+		</figure>
+		<div class="bio">
+			<div class="eyebrow">About</div>
+			<h1>Meet Shelley Monk</h1>
+			<Decor kind="rule" />
+			<p class="lede" data-todo>[Headline and role — from LinkedIn profile, to be supplied]</p>
+			<p data-todo>[Bio paragraph 1 — background, why Guiding Lives was founded, approach to young people and families]</p>
+			<p data-todo>[Bio paragraph 2 — experience, settings worked in, the kind of young people supported]</p>
+			<div class="quals">
+				<h2 class="eyebrow">Qualifications and training</h2>
+				<ul>
+					<li><span class="icon-dot"><Icon name="cap" /></span><span data-todo>[Qualification 1]</span></li>
+					<li><span class="icon-dot"><Icon name="cap" /></span><span data-todo>[Qualification 2]</span></li>
+					<li><span class="icon-dot"><Icon name="shield" /></span><span data-todo>[Safeguarding / DBS / insurance]</span></li>
+				</ul>
+			</div>
+			<a class="btn btn-ghost" href={linkedin} rel="noopener">View LinkedIn profile</a>
+		</div>
+	</section>
+
+	<section class="values">
+		<ul class="wrap">
+			{
+				values.map((v) => (
+					<li>
+						<span class="icon-dot">
+							<Icon name={v.icon} />
+						</span>
+						<h2>{v.title}</h2>
+						<p data-todo>[One or two sentences]</p>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section id="contact" class="contact wrap">
+		<div class="contact-text">
+			<div class="eyebrow">Contact</div>
+			<h2>Get in touch or make a referral</h2>
+			<p class="lede" data-todo>[Who can refer, what happens next, response time]</p>
+			<ul class="details">
+				<li><Icon name="mail" /><span data-todo>{contact.email}</span></li>
+				<li><Icon name="phone" /><span data-todo>{contact.phone}</span></li>
+				<li><Icon name="pin" /><span data-todo>{contact.area}</span></li>
+			</ul>
+		</div>
+
+		<!--
+			Netlify Forms: detected from the built HTML (data-netlify). If the site is
+			hosted elsewhere, point `action` at that host's form handler instead.
+		-->
+		<form class="form" name="contact" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company">
+			<input type="hidden" name="form-name" value="contact" />
+			<p class="hp" aria-hidden="true"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+			<div class="field">
+				<label for="f-name">Your name</label>
+				<input id="f-name" name="name" type="text" autocomplete="name" required />
+			</div>
+			<div class="field">
+				<label for="f-email">Email</label>
+				<input id="f-email" name="email" type="email" autocomplete="email" required />
+			</div>
+			<div class="field">
+				<label for="f-role">I am a…</label>
+				<select id="f-role" name="role">
+					{roles.map((r) => <option>{r}</option>)}
+				</select>
+			</div>
+			<div class="field">
+				<label for="f-msg">How can we help?</label>
+				<textarea id="f-msg" name="message" rows="5" required></textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">Send message</button>
+			<p class="privacy" data-todo>[Privacy note — how details are stored and used]</p>
+		</form>
+	</section>
+</BaseLayout>
+
+<style>
+	.about {
+		padding-top: clamp(48px, 8vw, 96px);
+		padding-bottom: var(--section);
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: 64px;
+		align-items: start;
+	}
+	.portrait {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+	.portrait-ph {
+		aspect-ratio: 4 / 5;
+		border-radius: 200px 200px 48px 48px;
+		background: linear-gradient(180deg, #d8dccb, #b9c2b0);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+	}
+	figcaption {
+		font-size: 14px;
+		color: var(--olive);
+		align-self: center;
+	}
+	.bio {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		align-items: flex-start;
+	}
+	.bio p {
+		color: var(--ink-soft);
+	}
+	.quals {
+		margin-top: 12px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.quals h2 {
+		font-family: var(--sans);
+		font-size: 12px;
+	}
+	.quals ul,
+	.details,
+	.values ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.quals ul {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.quals li {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+
+	.values {
+		background: var(--stone);
+		padding: 80px 0;
+		border-radius: clamp(60px, 14vw, 200px) 0 clamp(60px, 14vw, 200px) 0;
+	}
+	.values ul {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 40px;
+	}
+	.values li {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 14px;
+	}
+	.values .icon-dot {
+		background: var(--cream);
+	}
+	.values h2 {
+		font-size: 26px;
+	}
+	.values p {
+		color: var(--ink-soft);
+	}
+
+	.contact {
+		padding-top: var(--section);
+		padding-bottom: var(--section);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 64px;
+		scroll-margin-top: 24px;
+	}
+	.contact-text {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+	.details {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		margin-top: 8px;
+	}
+	.details li {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.form {
+		background: var(--stone);
+		border-radius: 40px;
+		padding: clamp(28px, 4vw, 44px);
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+	}
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+	label {
+		font-size: 12px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		font-weight: 400;
+	}
+	input,
+	select,
+	textarea {
+		font: inherit;
+		font-size: 16px;
+		color: var(--deep-green);
+		background: var(--cream);
+		border: 1px solid var(--pale-sage);
+		border-radius: 16px;
+		padding: 12px 16px;
+		width: 100%;
+	}
+	input:focus,
+	select:focus,
+	textarea:focus {
+		outline: 2px solid var(--deep-green);
+		outline-offset: 1px;
+		border-color: transparent;
+	}
+	.form .btn {
+		align-self: flex-start;
+	}
+	.privacy {
+		font-size: 13px;
+		color: var(--ink-soft);
+	}
+	.hp {
+		position: absolute;
+		left: -9999px;
+	}
+
+	@media (max-width: 860px) {
+		.about,
+		.contact {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+		.portrait {
+			max-width: 360px;
+		}
+	}
+</style>

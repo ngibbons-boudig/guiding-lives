@@ -1,0 +1,63 @@
+---
+import Decor from './Decor.astro';
+import { closingLine } from '../data/model';
+
+interface Props {
+	cta?: boolean;
+}
+const { cta = false } = Astro.props;
+---
+
+<!-- Background is a stand-in gradient: swap for the meadow / wildflower photo from the existing site. -->
+<section class="closing">
+	<span class="photo-note" data-todo>Meadow / wildflower photo</span>
+	<div class="inner">
+		<p class="quote">{closingLine}</p>
+		{cta && <a class="btn btn-primary" href="/about/#contact">Make a referral</a>}
+	</div>
+	<Decor kind="sprig" dark class="closing-sprig" />
+</section>
+
+<style>
+	.closing {
+		position: relative;
+		min-height: 380px;
+		background: linear-gradient(180deg, #e9e8da 0%, #c9cdb8 60%, #9fa78f 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 80px var(--gutter);
+		border-radius: clamp(80px, 20vw, 260px) 0 0 0;
+		overflow: hidden;
+	}
+	.photo-note {
+		position: absolute;
+		top: 24px;
+		left: var(--gutter);
+		font-size: 11px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+	}
+	.inner {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 32px;
+		max-width: 780px;
+		text-align: center;
+	}
+	.quote {
+		font-family: var(--script);
+		font-size: clamp(38px, 5.5vw, 56px);
+		line-height: 1.15;
+		color: var(--deep-green);
+	}
+	:global(.closing-sprig) {
+		width: clamp(110px, 14vw, 180px);
+		right: 48px;
+		bottom: 16px;
+		transform: scaleX(-1);
+	}
+</style>

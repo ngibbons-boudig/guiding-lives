@@ -1,0 +1,25 @@
+# Netlify build settings. The site is fully static.
+#
+# The contact form uses Netlify Forms (data-netlify on /about/). Form detection
+# is OFF by default: enable it under Forms → Enable form detection, then
+# redeploy. Add an email notification under Project configuration →
+# Notifications → Form submission notifications.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"

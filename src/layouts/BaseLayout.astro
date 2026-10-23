@@ -1,0 +1,49 @@
+---
+import { Font } from 'astro:assets';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { positioning } from '../data/model';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	noindex?: boolean;
+}
+
+const { title, description = positioning, noindex } = Astro.props;
+const fullTitle = title ? `${title} | Guiding Lives` : 'Guiding Lives — Youth Mentoring Support';
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : null;
+---
+
+<!doctype html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#F6F3EB" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, follow" />}
+		{canonical && <link rel="canonical" href={canonical.href} />}
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Guiding Lives" />
+		<meta property="og:locale" content="en_GB" />
+		{canonical && <meta property="og:url" content={canonical.href} />}
+		<Font cssVariable="--font-display" preload />
+		<Font cssVariable="--font-sans" preload />
+		<Font cssVariable="--font-script" preload />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<SiteHeader />
+		<main id="main">
+			<slot />
+		</main>
+		<SiteFooter />
+	</body>
+</html>

@@ -1,0 +1,192 @@
+---
+/**
+ * The brand's core diagram: the young person at the centre, six support areas
+ * around them. Desktop: 3-column grid around a central circle. Mobile: the
+ * young person first, then the areas stacked.
+ *
+ * `expandable` turns each card into a <details> disclosure (Our Model page):
+ * works without JavaScript and is keyboard/screen-reader friendly.
+ */
+import Icon from './Icon.astro';
+import { centre, supportAreas } from '../data/model';
+
+interface Props {
+	expandable?: boolean;
+}
+const { expandable = false } = Astro.props;
+---
+
+<div class="tree" data-expandable={expandable || undefined}>
+	<div class="centre">
+		<Icon name="person" size={44} />
+		<div class="centre-title">{centre.title}</div>
+		<div class="centre-tag">{centre.tagline}</div>
+	</div>
+
+	{
+		supportAreas.map((area, i) =>
+			expandable ? (
+				<details class:list={['card', `a${i}`]}>
+					<summary>
+						<Icon name={area.icon} size={40} />
+						<span class="card-title">{area.title}</span>
+						<span class="chev" aria-hidden="true" />
+					</summary>
+					<ul>
+						{area.points.map((p) => (
+							<li>{p}</li>
+						))}
+					</ul>
+				</details>
+			) : (
+				<div class:list={['card', `a${i}`]}>
+					<Icon name={area.icon} size={40} />
+					<h3 class="card-title">{area.title}</h3>
+					<ul>
+						{area.points.map((p) => (
+							<li>{p}</li>
+						))}
+					</ul>
+				</div>
+			),
+		)
+	}
+</div>
+
+<style>
+	.tree {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 28px;
+		align-items: center;
+	}
+	.a0 { grid-area: 1 / 1; }
+	.a1 { grid-area: 1 / 2; }
+	.a2 { grid-area: 1 / 3; }
+	.a3 { grid-area: 2 / 1; }
+	.centre { grid-area: 2 / 2; }
+	.a4 { grid-area: 2 / 3; }
+	.a5 { grid-area: 3 / 2; }
+
+	.card {
+		background: var(--stone);
+		padding: 36px 36px 40px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		border-radius: 140px 60px 140px 60px;
+	}
+	.a1, .a3, .a5 {
+		border-radius: 60px 140px 60px 140px;
+	}
+	.card-title {
+		font-family: var(--sans);
+		font-size: 13px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		font-weight: 500;
+		color: var(--deep-green);
+		line-height: 1.4;
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: 15px;
+		color: var(--ink-soft);
+		line-height: 1.7;
+	}
+
+	.centre {
+		background: var(--deep-green);
+		color: var(--cream);
+		border-radius: 50%;
+		aspect-ratio: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		text-align: center;
+		padding: 32px;
+	}
+	.centre-title {
+		font-size: 13px;
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		font-weight: 500;
+	}
+	.centre-tag {
+		font-family: var(--script);
+		font-size: 32px;
+		line-height: 1;
+		color: var(--pale-sage);
+	}
+
+	/* Expandable variant */
+	summary {
+		list-style: none;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		position: relative;
+	}
+	summary::-webkit-details-marker {
+		display: none;
+	}
+	.chev {
+		position: absolute;
+		right: 0;
+		top: 8px;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		border: 1px solid var(--mid-sage);
+	}
+	.chev::before,
+	.chev::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 11px;
+		height: 1.5px;
+		background: var(--deep-green);
+		transform: translate(-50%, -50%);
+		transition: transform 0.2s;
+	}
+	.chev::after {
+		transform: translate(-50%, -50%) rotate(90deg);
+	}
+	details[open] .chev::after {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	details:hover {
+		background: #e8e3d4;
+	}
+	details ul {
+		margin-top: 12px;
+	}
+
+	@media (max-width: 860px) {
+		.tree {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+		.tree > * {
+			grid-area: auto !important;
+		}
+		.centre {
+			order: -1;
+			width: min(300px, 80%);
+			justify-self: center;
+			margin-bottom: 12px;
+		}
+		.card,
+		.a1, .a3, .a5 {
+			border-radius: 40px;
+			padding: 28px 28px 30px;
+		}
+	}
+</style>

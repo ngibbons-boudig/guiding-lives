@@ -1,0 +1,36 @@
+---
+/** Decorative botanical sprig or hand-drawn brush rule, from the mockups. */
+interface Props {
+	kind: 'sprig' | 'rule';
+	class?: string;
+	dark?: boolean;
+}
+const { kind, class: className, dark = false } = Astro.props;
+---
+
+{
+	kind === 'rule' ? (
+		<svg class:list={['rule', className]} viewBox="0 0 160 10" aria-hidden="true">
+			<path d="M4 6 C 40 2, 120 2, 156 5" fill="none" stroke="#898F76" stroke-width="3" stroke-linecap="round" />
+		</svg>
+	) : (
+		<svg class:list={['sprig', className]} viewBox="0 0 160 120" aria-hidden="true">
+			<path d="M10 110 C 60 90, 100 60, 150 10" fill="none" stroke={dark ? '#4E5C4B' : '#7B8470'} stroke-width="2.5" stroke-linecap="round" />
+			<path d="M60 72 C 50 52, 62 40, 78 44 C 76 60, 68 70, 60 72 Z" fill={dark ? '#606D5D' : '#A3A791'} />
+			<path d="M98 48 C 92 28, 108 16, 124 22 C 120 40, 110 48, 98 48 Z" fill={dark ? '#4E5C4B' : '#898F76'} />
+			<path d="M34 96 C 28 80, 40 70, 54 74 C 52 88, 44 96, 34 96 Z" fill={dark ? '#606D5D' : '#A3A791'} />
+		</svg>
+	)
+}
+
+<style>
+	.rule {
+		width: 130px;
+		height: auto;
+	}
+	.sprig {
+		position: absolute;
+		pointer-events: none;
+		height: auto;
+	}
+</style>
