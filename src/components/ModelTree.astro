@@ -70,14 +70,15 @@ const { expandable = false } = Astro.props;
 
 	.card {
 		background: var(--stone);
-		padding: 36px 36px 40px;
+		/* Text keeps >= 28px from the curves: scripts/curve-check.js */
+		padding: 52px;
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
-		border-radius: 140px 60px 140px 60px;
+		border-radius: 96px 40px 96px 40px;
 	}
 	.a1, .a3, .a5 {
-		border-radius: 60px 140px 60px 140px;
+		border-radius: 40px 96px 40px 96px;
 	}
 	.card-title {
 		font-family: var(--sans);
@@ -109,7 +110,7 @@ const { expandable = false } = Astro.props;
 		justify-content: center;
 		gap: 10px;
 		text-align: center;
-		padding: 32px;
+		padding: 56px;
 	}
 	.centre-title {
 		font-size: 13px;
@@ -187,7 +188,7 @@ const { expandable = false } = Astro.props;
 		.card,
 		.a1, .a3, .a5 {
 			border-radius: 40px;
-			padding: 28px 28px 30px;
+			padding: 32px 36px 36px;
 		}
 	}
 </style>

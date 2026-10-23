@@ -125,10 +125,11 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 	.hero-card {
 		position: relative;
 		z-index: 1;
-		max-width: 640px;
+		max-width: 680px;
 		background: rgba(246, 243, 235, 0.92);
-		padding: 56px;
-		border-radius: 200px 48px 200px 48px;
+		/* Text keeps >= 28px from the curves: scripts/curve-check.js */
+		padding: 72px 64px 72px 72px;
+		border-radius: 160px 40px 160px 40px;
 		display: flex;
 		flex-direction: column;
 		gap: 22px;
@@ -265,8 +266,8 @@ import { positioning, strapline, modelTitle, modelIntro, moreThanMentoring } fro
 			align-items: flex-end;
 		}
 		.hero-card {
-			padding: 40px 28px;
-			border-radius: 120px 32px 32px 32px;
+			padding: 44px 32px;
+			border-radius: 56px 24px 56px 24px;
 		}
 		:global(.hero-sprig) {
 			top: 40px;

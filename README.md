@@ -62,3 +62,11 @@ Builds to static `dist/`. `netlify.toml` is included; the contact form uses
 Netlify Forms (enable form detection in the Netlify UI). On another host, point
 the form's `action` at that host's handler. Set `SITE_URL` to the live domain so
 canonical links and the sitemap are correct.
+
+## Checking text near curved corners
+
+The brand uses big organic curves, which can push text too close to the edge.
+`scripts/curve-check.js` measures every line of text inside any element with a
+large border radius, on every page at 1440/1280/1024/768/390px, and reports
+anything closer than 28px to a curve. Paste it into the browser console on the
+dev site and run `await curveCheck()`; an empty array means all clear.
